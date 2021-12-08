@@ -37,6 +37,7 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/dotenv',
   ],
   serverMiddleware: [
     { path: '/api', handler: '~/api/index.js' }
@@ -49,13 +50,13 @@ export default {
   ],
   firebase: {
     config: {
-      apiKey: "AIzaSyD8Vu8trsm_A8mpKmhQx6hmOtvpNXWyXTo",
-      authDomain: "kmnuxtproject-3.firebaseapp.com",
-      projectId: "kmnuxtproject-3",
-      storageBucket: "kmnuxtproject-3.appspot.com",
-      messagingSenderId: "173344370750",
-      appId: "1:173344370750:web:0866ba7ced3301fee3e16f",
-      measurementId: "G-R1QVM9EL2X"
+      apiKey: process.env.FIREBASE_APIKEY,
+      authDomain: process.env.FIREBASE_AUTHDOMAIN,
+      projectId: process.env.FIREBASE_PROJECTID,
+      storageBucket: process.env.FIREBASE_STORAGEBUCKET,
+      messagingSenderId: process.env.FIREBASE_MESSAGINGSENDERID,
+      appId: process.env.FIREBASE_APPID,
+      measurementId: process.env.FIREBASE_MEASUREMENTID
     },
     services: {
       // Just as example. Can be any other service.

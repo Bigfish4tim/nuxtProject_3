@@ -34,11 +34,11 @@ export default {
     }
   },
   mounted() {
-
+    console.log(process.env.FIREBASE_APIKEY)
     firebase.initializeApp({
-      apiKey: "AIzaSyD8Vu8trsm_A8mpKmhQx6hmOtvpNXWyXTo",
-      authDomain: "kmnuxtproject-3.firebaseapp.com",
-      projectId: "kmnuxtproject-3",
+      apiKey: process.env.FIREBASE_APIKEY,
+      authDomain: process.env.FIREBASE_AUTHDOMAIN,
+      projectId: process.env.FIREBASE_PROJECTID,
     });
 
     this.db = firebase.firestore()
@@ -46,9 +46,9 @@ export default {
   methods: {
     dbWrite() {
       this.db.collection("users").add({
-      first: "Ada",
-      last: "Lovelace",
-      born: 1815
+      first: "Adaaa",
+      last: "Lovelaaace",
+      born: 1816
       })
       .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
