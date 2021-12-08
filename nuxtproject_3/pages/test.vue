@@ -30,22 +30,22 @@ export default {
   data() {
     return {
       txt: '',
-      db: null,
+      // db: null,
     }
   },
   mounted() {
-    console.log(process.env.FIREBASE_APIKEY)
-    firebase.initializeApp({
-      apiKey: process.env.FIREBASE_APIKEY,
-      authDomain: process.env.FIREBASE_AUTHDOMAIN,
-      projectId: process.env.FIREBASE_PROJECTID,
-    });
+    // console.log(process.env.FIREBASE_APIKEY)
+    // firebase.initializeApp({
+    //   apiKey: process.env.FIREBASE_APIKEY,
+    //   authDomain: process.env.FIREBASE_AUTHDOMAIN,
+    //   projectId: process.env.FIREBASE_PROJECTID,
+    // });
 
-    this.db = firebase.firestore()
+    // this.db = firebase.firestore()
   },
   methods: {
     dbWrite() {
-      this.db.collection("users").add({
+      this.$db.collection("users").add({
       first: "Adaaa",
       last: "Lovelaaace",
       born: 1816
@@ -58,7 +58,7 @@ export default {
       });
     },
     dbRead() {
-      this.db.collection("users").get().then((querySnapshot) => {
+      this.$db.collection("users").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           console.log(`${doc.id} => ${doc.data()}`);
           this.txt = `${doc.id} => ${JSON.stringify(doc.data())}`

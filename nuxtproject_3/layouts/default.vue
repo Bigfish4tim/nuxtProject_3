@@ -113,6 +113,11 @@ export default {
         },
         {
           icon: 'mdi-mouse-off',
+          title: 'crud',
+          to: '/crud'
+        },
+        {
+          icon: 'mdi-mouse-off',
           title: 'Main',
           to: '/mainpage'
         },
