@@ -4,44 +4,68 @@
       hello???
     </v-card-title>
     <v-card-text>
-      <v-textarea v-model="txt" />
-      <v-textarea v-model="txt2"/>
+      <v-textarea v-model="txt"/>
     </v-card-text>
     <v-card-actions>
-      <v-btn @click="test">
-        test
-      </v-btn>
-      <v-btn @click="hello">
-        hello
-      </v-btn>
-      <v-btn @click="moment">
-        moment
-      </v-btn>
+      <v-btn @click="dbWrite">write</v-btn>
+      <v-btn @click="dbRead">read</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script>
+// const firebase = require("firebase");
+// // Required for side-effects
+// require("firebase/firestore");
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
+import 'firebase/firestore'
+import 'firebase/storage'
 
 export default {
+  name: "Test",
   data() {
     return {
       txt: '',
-      txt2: '',
+      db: null,
     }
   },
+  mounted() {
+
+    firebase.initializeApp({
+      apiKey: "AIzaSyD8Vu8trsm_A8mpKmhQx6hmOtvpNXWyXTo",
+      authDomain: "kmnuxtproject-3.firebaseapp.com",
+      projectId: "kmnuxtproject-3",
+    });
+
+    this.db = firebase.firestore()
+  },
   methods: {
-    async test() {
-      const r = await this.$axios.get('/api')
-      this.txt = r.data
+    dbWrite() {
+      this.db.collection("users").add({
+      first: "Ada",
+      last: "Lovelace",
+      born: 1815
+      })
+      .then((docRef) => {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch((error) => {
+          console.error("Error adding document: ", error);
+      });
     },
-    async hello() {
-      const r = await this.$axios.get('/api/hello')
-      this.txt2 = r.data
-    },
-    moment() {
-      this.txt2 = this.$moment().toLocaleString()
-    },
+    dbRead() {
+      this.db.collection("users").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          console.log(`${doc.id} => ${doc.data()}`);
+          this.txt = `${doc.id} => ${JSON.stringify(doc.data())}`
+        });
+      });
+    }
   }
+
 }
 </script>
