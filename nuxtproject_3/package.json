@@ -9,7 +9,8 @@
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "prepare": "husky install",
-    "lint": "yarn lint:js"
+    "lint": "yarn lint:js",
+    "firebase:deploy": "nuxt generate && firebase deploy"
   },
   "lint-staged": {
     "*.{js,vue}": "eslint"
