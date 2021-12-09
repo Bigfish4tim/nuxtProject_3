@@ -16,6 +16,7 @@
     "*.{js,vue}": "eslint"
   },
   "dependencies": {
+    "@mdi/font": "^6.5.95",
     "@mdi/js": "^6.5.95",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/dotenv": "^1.4.1",
@@ -24,6 +25,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "firebase": "^8.10.0",
+    "import": "^0.0.6",
     "moment": "^2.29.1",
     "nuxt": "^2.15.7",
     "vuetify": "^2.5.5"

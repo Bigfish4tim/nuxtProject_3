@@ -5,21 +5,24 @@
                 crud test
             </v-card-title>
             <v-data-table :headers="headers" :items="items">
-                <template #items="props">
+                <!-- <template #items="props">
                     <td>{{ props.item.id }}</td>
                     <td>{{ props.item.createAt }}</td>
                     <td>{{ props.item.title }}</td>
                     <td>{{ props.item.content }}</td>
                     <td>
-                        <v-card-actions>
-                        <v-btn @click="openDialog('update', props.item)">수정</v-btn>
-                        </v-card-actions>
-                        <v-card-actions>
-                        <v-btn @click="remove">제거</v-btn>
-                        </v-card-actions>
-
-                        
+                        <v-btn outline fab small @click="openDialog('update', props.item)"
+                            ><v-icon>facebook</v-icon>
+                        </v-btn>
+                        <v-btn outline fab small @click="remove"><v-icon>delete</v-icon></v-btn>
                     </td>
+                </template> -->
+                <template #item.actions="{ item }">
+                    <v-card-actions>
+                        <v-btn outline fab small @click="openDialog('update', item)"><v-icon>edit</v-icon>
+                        </v-btn>
+                        <v-btn outline fab small @click="remove(item)"><v-icon>delete</v-icon></v-btn>
+                    </v-card-actions>
                 </template>
             </v-data-table>
             <v-card-actions>
@@ -84,8 +87,8 @@ export default {
         async create() {
             const item = Object.assign(this.form)
             item.createAt = new Date()
-            const s = await this.$db.collection('boards').add(item)
-            console.log(s)
+            await this.$db.collection('boards').add(item)
+
             this.dialog = false
             await this.read()
         },

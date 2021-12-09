@@ -21,6 +21,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    "@mdi/font/css/materialdesignicons.css"
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -35,7 +36,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module',
+    // '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
     '@nuxtjs/dotenv',
@@ -90,6 +91,13 @@ export default {
           success: colors.green.accent3
         }
       }
+    },
+    defaultAssets: {
+      font: true,
+      icons: 'md'
+    },
+    icons: {
+      iconfont: 'md',
     }
   },
 

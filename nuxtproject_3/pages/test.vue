@@ -10,6 +10,19 @@
       <v-btn @click="dbWrite">write</v-btn>
       <v-btn @click="dbRead">read</v-btn>
     </v-card-actions>
+    <v-flex xs12 mb-3>
+      <v-btn outline fab small color="blue-grey lighten-4">
+          <v-icon color="grey darken-4">facebook</v-icon>
+      </v-btn>
+
+      <v-btn outline fab small color="blue-grey lighten-4">
+          <v-icon color="grey darken-4">google-plus</v-icon>
+      </v-btn>
+
+      <v-btn outline fab small color="blue-grey lighten-4">
+        <v-icon color="grey darken-4">linkedin</v-icon>
+      </v-btn>
+    </v-flex>
   </v-card>
 </template>
 
