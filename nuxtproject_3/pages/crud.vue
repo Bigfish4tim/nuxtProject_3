@@ -19,9 +19,9 @@
                 </template> -->
                 <template #item.actions="{ item }">
                     <v-card-actions>
-                        <v-btn outline fab small @click="openDialog('update', item)"><v-icon>edit</v-icon>
+                        <v-btn outlined fab small @click="openDialog('update', item)"><v-icon>edit</v-icon>
                         </v-btn>
-                        <v-btn outline fab small @click="remove(item)"><v-icon>delete</v-icon></v-btn>
+                        <v-btn outlined fab small @click="remove(item)"><v-icon>delete</v-icon></v-btn>
                     </v-card-actions>
                 </template>
             </v-data-table>
