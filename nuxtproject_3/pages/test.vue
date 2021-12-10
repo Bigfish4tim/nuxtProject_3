@@ -46,8 +46,8 @@ export default {
   methods: {
     dbWrite() {
       this.$db.collection("users").add({
-      first: "Adaaa",
-      last: "Lovelaaace",
+      first: "Ada",
+      last: "Lovelace",
       born: 1816
       })
       .then((docRef) => {
