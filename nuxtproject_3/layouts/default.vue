@@ -80,98 +80,102 @@
       </v-list>
     </v-navigation-drawer>
     <v-footer
-      :absolute="!fixed"
+      :absolute="fixed"
       app
+      elevation=6
     >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <VueFooter/>
+      <!-- <span>&copy; {{ new Date().getFullYear() }}</span> -->
     </v-footer>
   </v-app>
 </template>
 
 <script>
+import VueFooter from "~/components/vueFooter.vue"
 export default {
-  data () {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        },
-        {
-          icon: 'mdi-mouse-off',
-          title: 'Test',
-          to: '/test'
-        },
-        {
-          icon: 'mdi-mouse-off',
-          title: 'crud',
-          to: '/crud'
-        },
-        {
-          icon: 'mdi-mouse-off',
-          title: 'Main',
-          to: '/mainpage'
-        },
-        {
-          icon: 'mdi-mouse-off',
-          title: '업무관리',
-          to: '/businessManagement'
-        },
-        {
-          icon: 'mdi-mouse-off',
-          title: '메모관리',
-          to: '/memoManagement'
-        },
-        {
-          icon: 'mdi-mouse-off',
-          title: '전자결제',
-          to: '/webSign'
-        },
-        {
-          icon: 'mdi-mouse-off',
-          title: '회계관리',
-          to: '/accountingManagement'
-        },
-        {
-          icon: 'mdi-mouse-off',
-          title: '자료실',
-          to: '/referenceRoom'
-        },
-        {
-          icon: 'mdi-mouse-off',
-          title: '커뮤니티',
-          to: '/community'
-        },
-        {
-          icon: 'mdi-mouse-off',
-          title: '통계',
-          to: '/statistics'
-        },
-        {
-          icon: 'mdi-mouse-off',
-          title: '마이페이지',
-          to: '/myPage'
-        },
-        {
-          icon: 'mdi-mouse-off',
-          title: '관리자',
-          to: '/manager'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+    components: { VueFooter },
+    data() {
+        return {
+            clipped: false,
+            drawer: false,
+            fixed: false,
+            items: [
+                {
+                    icon: "mdi-apps",
+                    title: "Welcome",
+                    to: "/"
+                },
+                {
+                    icon: "mdi-chart-bubble",
+                    title: "Inspire",
+                    to: "/inspire"
+                },
+                {
+                    icon: "mdi-mouse-off",
+                    title: "Test",
+                    to: "/test"
+                },
+                {
+                    icon: "mdi-mouse-off",
+                    title: "crud",
+                    to: "/crud"
+                },
+                {
+                    icon: "mdi-mouse-off",
+                    title: "Main",
+                    to: "/mainpage"
+                },
+                {
+                    icon: "mdi-mouse-off",
+                    title: "업무관리",
+                    to: "/businessManagement"
+                },
+                {
+                    icon: "mdi-mouse-off",
+                    title: "메모관리",
+                    to: "/memoManagement"
+                },
+                {
+                    icon: "mdi-mouse-off",
+                    title: "전자결제",
+                    to: "/webSign"
+                },
+                {
+                    icon: "mdi-mouse-off",
+                    title: "회계관리",
+                    to: "/accountingManagement"
+                },
+                {
+                    icon: "mdi-mouse-off",
+                    title: "자료실",
+                    to: "/referenceRoom"
+                },
+                {
+                    icon: "mdi-mouse-off",
+                    title: "커뮤니티",
+                    to: "/community"
+                },
+                {
+                    icon: "mdi-mouse-off",
+                    title: "통계",
+                    to: "/statistics"
+                },
+                {
+                    icon: "mdi-mouse-off",
+                    title: "마이페이지",
+                    to: "/myPage"
+                },
+                {
+                    icon: "mdi-mouse-off",
+                    title: "관리자",
+                    to: "/manager"
+                }
+            ],
+            miniVariant: false,
+            right: true,
+            rightDrawer: false,
+            title: "Vuetify.js"
+        };
     }
-  }
 }
 </script>
