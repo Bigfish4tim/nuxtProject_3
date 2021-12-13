@@ -54,11 +54,12 @@ export default {
             dialog: false,
             mode: 'create',
             form: {
+                createAt: new Date(),
                 title: '',
                 content: '',
             },
             headers: [
-                { value: 'id', text: 'id' },
+                { value: 'starCount', text: 'starCount' },
                 { value: 'createAt', text: '작성 날짜' },
                 { value: 'title', text: '제목' },
                 { value: 'content', text: '내용' },
@@ -66,9 +67,11 @@ export default {
             ],
             items: [],
             selectedItem: null,
+            starCount: 0,
         }
     },
     mounted() {
+        console.log(this.starCount)
         this.read()
     },
     methods: {
@@ -77,6 +80,7 @@ export default {
             if (mode === 'create') {
                 this.form.title = ''
                 this.form.content = ''
+                this.form.createAt = new Date()
             } else {
                 this.form.title = sel.title
                 this.form.content = sel.content
@@ -87,34 +91,80 @@ export default {
         async create() {
             const item = Object.assign(this.form)
             item.createAt = new Date()
-            await this.$db.collection('boards').add(item)
+            ++this.starCount
+
+            // // firestore db
+            // await this.$db.collection('boards').add(item)
+
+
+            await this.$rdb.ref().child('aaab' + this.starCount).set(item)
 
             this.dialog = false
             await this.read()
         },
         async read() {
-            const s = await this.$db.collection('boards').get()
+            // const s = await this.$db.collection('boards').get()
+            // this.items = []
+            // s.forEach(d => {
+            //     const r = d.data()
+            //     const item = {
+            //         id: d.id,
+            //         createAt: r.createAt.toDate().toLocaleString(),
+            //         title: r.title,
+            //         content: r.content
+            //     }
+            //     this.items.push(item)
+            // })
+
+            const sn = await this.$rdb.ref().get()
             this.items = []
-            s.forEach(d => {
-                const r = d.data()
+            sn.forEach(d => {
+                const ro = d.val()
+                console.log(ro)
                 const item = {
-                    id: d.id,
-                    createAt: r.createAt.toDate().toLocaleString(),
-                    title: r.title,
-                    content: r.content
+                    starCount: ++this.form.starCount,
+                    createAt: ro.createAt,
+                    title: ro.title,
+                    content: ro.content
                 }
                 this.items.push(item)
             })
+            this.form.starCount = 0
         },
         async update() {
-            await this.$db.collection('boards').doc(this.selectedItem.id).update(this.form)
+            // await this.$db.collection('boards').doc(this.selectedItem.id).update(this.form)
+            await this.$rdb.ref().child('aaab').update(this.form)
             this.dialog = false
             await this.read()
         },
         async remove(p) {
-            await this.$db.collection('boards').doc(p.id).delete()
+            // await this.$db.collection('boards').doc(p.id).delete()
+
+            await this.$rdb.ref().child('aaab1').remove()
+
             await this.read()
-        }
+        },
+        // function: writeNewPost(uid, username, picture, title, body) {
+        //     // A post entry.
+        //     var postData = {
+        //         author: username,
+        //         uid: uid,
+        //         body: body,
+        //         title: title,
+        //         starCount: 0,
+        //         authorPic: picture
+        //     };
+
+        //     // Get a key for a new Post.
+        //     var newPostKey = firebase.database().ref().child('posts').push().key;
+
+        //     // Write the new post's data simultaneously in the posts list and the user's post list.
+        //     var updates = {};
+        //     updates['/posts/' + newPostKey] = postData;
+        //     updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+
+        //     return firebase.database().ref().update(updates);
+        // }
     }
 }
 </script>

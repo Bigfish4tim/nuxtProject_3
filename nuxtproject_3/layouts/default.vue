@@ -21,11 +21,6 @@
           :value="true"
           no-action
         >
-          <!-- <template #:activator>
-            <v-list-item-content>
-              <v-list-item-title ></v-list-item-title>
-            </v-list-item-content>
-          </template> -->
           <template #activator>
             <v-list-item-title v-text="item.menutitle"></v-list-item-title>
           </template>
@@ -90,7 +85,7 @@
       >
         <v-icon>mdi-minus</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title v-text="barTitle" />
       <v-spacer />
       <v-btn
         icon
@@ -689,7 +684,7 @@ export default {
             miniVariant: false,
             right: true,
             rightDrawer: false,
-            title: "Vuetify.js"
+            barTitle: "Vuetify.js"
         };
     }
 }

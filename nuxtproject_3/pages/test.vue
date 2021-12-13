@@ -9,6 +9,7 @@
     <v-card-actions>
       <v-btn @click="dbWrite">쓰기</v-btn>
       <v-btn @click="dbRead">읽기</v-btn>
+      <v-btn @click="dbdelete">삭제</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -45,25 +46,44 @@ export default {
   },
   methods: {
     dbWrite() {
-      this.$db.collection("users").add({
-      first: "Ada",
-      last: "Lovelace",
-      born: 1816
+      // this.$db.collection("users").add({
+      // first: "Ada",
+      // last: "Lovelace",
+      // born: 1816
+      // })
+      // .then((docRef) => {
+      //     console.log("Document written with ID: ", docRef.id);
+      // })
+      // .catch((error) => {
+      //     console.error("Error adding document: ", error);
+      // });
+
+      this.$rdb.ref().child('aaa').set({
+        first: "Ada",
+        last: "Lovelace",
       })
-      .then((docRef) => {
-          console.log("Document written with ID: ", docRef.id);
-      })
-      .catch((error) => {
-          console.error("Error adding document: ", error);
-      });
+
+      console.log('set correct')
     },
     dbRead() {
-      this.$db.collection("users").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          console.log(`${doc.id} => ${doc.data()}`);
-          this.txt = `${doc.id} => ${JSON.stringify(doc.data())}`
-        });
-      });
+
+
+      // this.$db.collection("users").get().then((querySnapshot) => {
+      //   querySnapshot.forEach((doc) => {
+      //     console.log(`${doc.id} => ${doc.data()}`);
+      //     this.txt = `${doc.id} => ${JSON.stringify(doc.data())}`
+      //   });
+      // });
+
+      this.$rdb.ref().child('aaa').on('value', (sn) => {
+        
+        this.txt = JSON.stringify(sn.val())
+      })
+    },
+    async dbdelete() {
+      const sn = await this.$rdb.ref().child('aaa').once('value')
+      this.txt = JSON.stringify(sn)
+      console.log(sn)
     }
   }
 
