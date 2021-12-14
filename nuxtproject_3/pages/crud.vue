@@ -54,12 +54,13 @@ export default {
             dialog: false,
             mode: 'create',
             form: {
-                createAt: new Date(),
+                id: '',
+                createAt: '',
                 title: '',
                 content: '',
             },
             headers: [
-                { value: 'starCount', text: 'starCount' },
+                { value: 'id', text: 'id' },
                 { value: 'createAt', text: '작성 날짜' },
                 { value: 'title', text: '제목' },
                 { value: 'content', text: '내용' },
@@ -67,11 +68,10 @@ export default {
             ],
             items: [],
             selectedItem: null,
-            starCount: 0,
         }
     },
     mounted() {
-        console.log(this.starCount)
+        console.log(this.items.length)
         this.read()
     },
     methods: {
@@ -80,7 +80,6 @@ export default {
             if (mode === 'create') {
                 this.form.title = ''
                 this.form.content = ''
-                this.form.createAt = new Date()
             } else {
                 this.form.title = sel.title
                 this.form.content = sel.content
@@ -90,14 +89,15 @@ export default {
         },
         async create() {
             const item = Object.assign(this.form)
-            item.createAt = new Date()
-            ++this.starCount
-
+            item.createAt = new Date().toLocaleString()
+            item.id = this.items.length + 1
+            console.log(item.id + ' test id')
             // // firestore db
             // await this.$db.collection('boards').add(item)
 
 
-            await this.$rdb.ref().child('aaab' + this.starCount).set(item)
+            await this.$rdb.ref('users/' + item.id).set(item)
+
 
             this.dialog = false
             await this.read()
@@ -116,31 +116,36 @@ export default {
             //     this.items.push(item)
             // })
 
-            const sn = await this.$rdb.ref().get()
+            const sn = await this.$rdb.ref('users/').get()
             this.items = []
             sn.forEach(d => {
                 const ro = d.val()
                 console.log(ro)
                 const item = {
-                    starCount: ++this.form.starCount,
+                    id: ro.id,
                     createAt: ro.createAt,
                     title: ro.title,
                     content: ro.content
                 }
                 this.items.push(item)
             })
-            this.form.starCount = 0
         },
         async update() {
             // await this.$db.collection('boards').doc(this.selectedItem.id).update(this.form)
-            await this.$rdb.ref().child('aaab').update(this.form)
+            const b = {
+                id: this.selectedItem.id,
+                createAt: this.selectedItem.createAt,
+                title: this.form.title,
+                content: this.form.content
+            }
+            await this.$rdb.ref('users/' + this.selectedItem.id).update(b)
             this.dialog = false
             await this.read()
         },
         async remove(p) {
             // await this.$db.collection('boards').doc(p.id).delete()
 
-            await this.$rdb.ref().child('aaab1').remove()
+            await this.$rdb.ref('users/' + p.id).remove()
 
             await this.read()
         },
